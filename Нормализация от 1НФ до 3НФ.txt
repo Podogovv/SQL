@@ -27,6 +27,7 @@ job_title job_industry_category
 Объединяем всё связанное с продуктом в отдельную таблицу products, где ключ product_id: product_id; brand; product_line; product_class; product_size; list_price; standard_cost
 
 3 нормальная форма:
+• Соответствует 2NF
 • Нет транзитивных зависимостей (неключевые атрибуты не
 зависят от других неключевых атрибутов)
 
