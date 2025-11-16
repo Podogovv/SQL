@@ -1,0 +1,40 @@
+1 нормальная форма:
+• Все атрибуты атомарны (не содержат множественных значений)
+• Нет повторяющихся групп
+
+Для Transaction:
+Нарушение атомарности доменов
+Поля: brand product_line product_class product_size
+повторяются во множестве строк и относятся не к транзакции, а к продукту.
+Разделяем данные на таблицы
+Транзакции - всё что связано с транзакциями
+transaction_id product_id customer_id transaction_date online_order order_status
+Продукт - всё что связано с продуктом
+product_id brand product_line product_class product_size list_price standard_cost
+
+Для Customers:
+Объединяем всё связанное с местом проживания в таблицу Location
+address postcode state country
+В таблицу Job - всё связанное с работой
+job_title job_industry_category
+И приводим значения в ячейках owns_car и deceased_indicator к булевому значению (тк изначально они текстовые)
+
+2 нормальная форма:
+• Соответствует 1NF
+• Все неключевые атрибуты полностью зависят от первичного ключа
+
+Если рассматривать исходную таблицу, то ключ транзакции = transaction_id, но данные о продукте зависят не от transaction_id, а от product_id.
+Объединяем всё связанное с продуктом в отдельную таблицу products, где ключ product_id: product_id; brand; product_line; product_class; product_size; list_price; standard_cost
+
+3 нормальная форма:
+• Нет транзитивных зависимостей (неключевые атрибуты не
+зависят от других неключевых атрибутов)
+
+В таблице products поля: brand; product_line; product_class; product_size
+значения многократно повторяются в таблице, и фактически являются отдельными объектами: Brand; Product line; Class; Size. 
+Следовательно, они формируют транзитивные зависимости:
+product_id - product - product_class (Неключевое поле зависит от другого неключевого поля)
+Для того, чтобы избежать нарушений по 3 нормальной форме, создаём отдельные таблицы:
+Brands; product_lines; product_classes; product_sizes; products
+По этому принципу для customer, создаем отдельные таблицы:
+jobs; countries; states
