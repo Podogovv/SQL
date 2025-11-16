@@ -60,20 +60,12 @@ create table products (
     line_id          int not null,
     class_id         int not null,
     size_id          int not null,
-    list_price       numeric(10,2) not null,
-    standard_cost    numeric(10,2) not null,
-
-    constraint fk_products_brand
-        foreign key (brand_id) references brands (brand_id),
-
-    constraint fk_products_line
-        foreign key (line_id) references product_lines (line_id),
-
-    constraint fk_products_class
-        foreign key (class_id) references product_classes (class_id),
-
-    constraint fk_products_size
-        foreign key (size_id) references product_sizes (size_id)
+    list_price       int not null,
+    standard_cost    int not null,
+    foreign key (brand_id) references brands (brand_id),
+    foreign key (line_id) references product_lines (line_id),
+    foreign key (class_id) references product_classes (class_id),
+    foreign key (size_id) references product_sizes (size_id)
 );
 
 create table customers (
@@ -82,16 +74,12 @@ create table customers (
     last_name text not null,
     gender text not null,
     dob date not null,
-    
     job_id int,
     wealth_segment text not null,
-    
     deceased boolean not null default false,
     owns_car boolean not null default false,
-
     address_id int not null,
     property_valuation int not null,
-
     foreign key (job_id) references jobs(job_id),
     foreign key (address_id) references addresses(address_id)
 );
@@ -103,10 +91,6 @@ create table transactions (
     transaction_date  date not null,
     online_order      boolean not null,
     order_status      text not null,
-
-    constraint fk_transactions_product
-        foreign key (product_id) references products (product_id),
-
-    constraint fk_transactions_customer
-        foreign key (customer_id) references customers (customer_id)
+    foreign key (product_id) references products (product_id),
+    foreign key (customer_id) references customers (customer_id)
 );
